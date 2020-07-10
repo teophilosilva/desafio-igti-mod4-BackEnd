@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { gradeRouter } from './routes/gradeRouter.js';
-import { logger } from './config/logger.js';
+//import { logger } from './config/logger.js';
 import { db } from './models/index.js';
 
 (async () => {
