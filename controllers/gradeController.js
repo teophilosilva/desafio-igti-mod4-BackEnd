@@ -25,12 +25,25 @@ const create = async (req, res) => {
 };
 
 const findAll = async (req, res) => {
+  
+  const result = await myModel.find({});
+
+  try {
+    res.send(result);
+    logger.info(`GET /grade`);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: error.message || "Erro ao listar todos os documentos" });
+    logger.error(`GET /grade - ${JSON.stringify(error.message)}`);
+  }
+};
+
+const findName = async (req, res) => {
   //condicao para o filtro no findAll
   var condition = req.params.name;
   const result = await myModel.find(
-    { name: { $regex: new RegExp(condition), $options: "i" } },
-    {}
-  );
+    { name: { $regex: new RegExp(condition), $options: "i" } },{});
 
   try {
     res.send(result);
@@ -43,7 +56,7 @@ const findAll = async (req, res) => {
   }
 };
 
-const findOne = async (req, res) => {
+const findById = async (req, res) => {
   const id = req.params.id;
   
   try {
@@ -110,4 +123,4 @@ const removeAll = async (req, res) => {
   }
 };
 
-export default { create, findAll, findOne, update, remove, removeAll };
+export default { create, findAll, findName, findById, update, remove, removeAll };
